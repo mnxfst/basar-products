@@ -89,6 +89,39 @@
   			<artifactId>akka-cluster_2.10</artifactId>
   			<version>2.2.0</version>
 		</dependency>
+		
+		<!-- redis client -->
+		<dependency>
+    		<groupId>com.lambdaworks</groupId>
+    		<artifactId>lettuce</artifactId>
+    		<version>2.3.3</version>
+  		</dependency>
+
+		<!-- mongo database -->
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>2.11.2</version>
+		</dependency>
+  		
+  		<!-- jackson json -->
+  		<dependency>
+  			<groupId>com.fasterxml.jackson.core</groupId>
+  			<artifactId>jackson-core</artifactId>
+  			<version>2.2.0</version>
+		</dependency>
+		
+  		<dependency>
+  			<groupId>com.fasterxml.jackson.core</groupId>
+  			<artifactId>jackson-annotations</artifactId>
+  			<version>2.2.0</version>
+		</dependency>
+		
+		<dependency>
+  			<groupId>com.fasterxml.jackson.core</groupId>
+  			<artifactId>jackson-databind</artifactId>
+  			<version>2.2.0</version>
+		</dependency>
 		  		
   		<!-- apache commons -->	
 		<dependency>
@@ -110,44 +143,10 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.4</version>
 		</dependency>
-
-	    <!-- google gson -->
-	    <dependency>
-	    	<groupId>com.google.code.gson</groupId>
-	    	<artifactId>gson</artifactId>
-	    	<version>2.2.2</version>
-	    </dependency>
-
-		<!-- text diff -->
-		<dependency>
-    		<groupId>com.googlecode.java-diff-utils</groupId>
-    		<artifactId>diffutils</artifactId>
-    		<version>1.2.1</version>
-		</dependency>
-		
-		<!-- mongo database -->
-		<dependency>
-			<groupId>org.mongodb</groupId>
-			<artifactId>mongo-java-driver</artifactId>
-			<version>2.10.0</version>
-		</dependency>
-  		
   	</dependencies>
   	
 	<build>
 		<plugins>
-			<plugin>
-			  <groupId>com.ning.maven.plugins</groupId>
-			  <artifactId>maven-duplicate-finder-plugin</artifactId>
-			  <executions>
-			    <execution>
-			      <phase>verify</phase>
-			      <goals>
-			        <goal>check</goal>
-			      </goals>
-			    </execution>
-			  </executions>
-			</plugin>				
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -157,52 +156,6 @@
 					<target>1.7</target>
 					<encoding>UTF-8</encoding>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-site-plugin</artifactId>
-				<version>3.2</version>
-				<configuration>
-					<reportPlugins>
-						<plugin>
-							<groupId>org.codehaus.mojo</groupId>
-							<artifactId>findbugs-maven-plugin</artifactId>
-							<version>2.5.1</version>
-						</plugin>
-					</reportPlugins>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>findbugs-maven-plugin</artifactId>
-				<version>2.5.1</version>
-				<configuration>
-					<excludeFilterFile>${basedir}/src/test/resources/findbugs-exclude.xml</excludeFilterFile>
-					<findbugsXmlOutput>true</findbugsXmlOutput>
-					<findbugsXmlWithMessages>true</findbugsXmlWithMessages>
-					<xmlOutput>true</xmlOutput>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.2.2</version>
-				<configuration>
-					<providerImplementations>
-						<svn>javasvn</svn>
-					</providerImplementations>
-					<checkModificationExcludes>
-						<checkModificationExclude>/**/log</checkModificationExclude>
-					</checkModificationExcludes>
-					<autoversionsubmodules>true</autoversionsubmodules>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>com.google.code.maven-scm-provider-svnjava</groupId>
-						<artifactId>maven-scm-provider-svnjava</artifactId>
-						<version>1.15</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 		</plugins>
 	</build>  	
