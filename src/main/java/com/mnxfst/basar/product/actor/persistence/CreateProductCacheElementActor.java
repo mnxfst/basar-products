@@ -21,9 +21,11 @@ import java.util.UUID;
 
 import akka.actor.UntypedActor;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lambdaworks.redis.RedisConnection;
 import com.mnxfst.basar.product.actor.message.CreateProductMsg;
+import com.mnxfst.basar.product.exception.DatabaseConnectionFailedException;
 import com.mnxfst.basar.product.model.Product;
 
 /**
@@ -60,11 +62,28 @@ public class CreateProductCacheElementActor extends UntypedActor {
 		// ensure that only messages are processed which request the creation of a product 
 		if(message instanceof CreateProductMsg) {
 			CreateProductMsg cpm = (CreateProductMsg)message;
-			Product product = cpm.getProduct();
-			product.setProductId(UUID.randomUUID().toString());
-			
-			redisConnection.set(product.getProductId(), productJSONMapper.writeValueAsString(product));
+			createProductCacheElement(cpm.getProduct());
+		} else  {
+			unhandled(message);
 		}
-				
+	}
+	
+	/**
+	 * Create cache element for provided {@link Product product} 
+	 * @param product
+	 * @return returns the provided product having the newly created identifier set
+	 * @throws JsonProcessingException
+	 */
+	protected Product createProductCacheElement(Product product) throws JsonProcessingException, DatabaseConnectionFailedException {		
+		if(product != null) {
+			
+			if(this.redisConnection == null)
+				throw new DatabaseConnectionFailedException("Missing required database connection");
+			
+			product.setProductId(UUID.randomUUID().toString());
+			this.redisConnection.set(product.getProductId(), productJSONMapper.writeValueAsString(product));
+			return product;
+		}		
+		return null;
 	}
 }

@@ -47,9 +47,8 @@ public class CreateProductPersistenceRootActor extends UntypedActor {
 	 * Initializes the actor instance
 	 */
 	public CreateProductPersistenceRootActor() {
-		
 		final BasarSettingsImpl settings = BasarSettings.SettingsProvider.get(getContext().system());		
-		this.redisClient = new RedisClient(settings.PRODUCT_CACHE_HOST, settings.PRODUCT_CACHE_PORT);		
+		this.redisClient = new RedisClient(settings.PRODUCT_CACHE_HOST, settings.PRODUCT_CACHE_PORT);
 		this.createProductCacheElementActorRef = context().actorOf(Props.create(new CreateProductCacheElementActorCreator(redisClient)).withRouter(new RoundRobinRouter(settings.NUM_CREATE_CONNECTIONS)));
 	}
 	

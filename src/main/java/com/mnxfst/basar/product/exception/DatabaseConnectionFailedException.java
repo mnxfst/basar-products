@@ -15,31 +15,34 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.mnxfst.basar.product.actor;
-
-import org.junit.Test;
-
-import akka.actor.ActorRef;
-import akka.actor.ActorSystem;
-import akka.actor.Props;
+package com.mnxfst.basar.product.exception;
 
 /**
- * Test case for {@link CreateProductRootActor}
+ * Thrown in case the database connection is not present when trying
+ * to read or write data
  * @author mnxfst
- * @since 16.07.2013
+ * @since 23.07.2013
  *
  * Revision Control Info $Id$
  */
-public class CreateProductRootActorTest {
+public class DatabaseConnectionFailedException extends Exception {
 
-	@Test
-	public void testCreateProductMessage() throws Exception {
-		
-		ActorSystem system = ActorSystem.create("basar");
-		ActorRef ref = system.actorOf(Props.create(CreateProductRootActor.class));
-		System.out.println(ref);
-		
-		Thread.sleep(1000);
-		
+	private static final long serialVersionUID = -5948992901307330092L;
+	
+	public DatabaseConnectionFailedException() {
+		super();
 	}
+	
+	public DatabaseConnectionFailedException(String msg) {
+		super(msg);
+	}
+	
+	public DatabaseConnectionFailedException(Throwable cause) {
+		super(cause);
+	}
+	
+	public DatabaseConnectionFailedException(String msg, Throwable cause) {
+		super(msg, cause);
+	}
+
 }

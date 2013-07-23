@@ -40,7 +40,7 @@ public class CreateProductRootActor extends UntypedActor {
 	private final ActorRef createProductPersistenceRootActorRef;
 	
 	public CreateProductRootActor() {
-		this.createProductPersistenceRootActorRef = context().actorOf(Props.create(CreateProductPersistenceRootActor.class));
+		this.createProductPersistenceRootActorRef = context().actorOf(Props.create(CreateProductPersistenceRootActor.class));		
 	}
 	
 	/**
